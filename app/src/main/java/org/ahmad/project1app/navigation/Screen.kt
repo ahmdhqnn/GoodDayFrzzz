@@ -6,5 +6,5 @@ sealed class Screen(val route: String) {
     data object Augmented: Screen("augmentedScreen")
     data object Visual: Screen("visualScreen")
     data object Module: Screen("moduleScreen")
-    data object Glosarium: Screen("glosariumScreen")
+    data object Glossary: Screen("glosariumScreen")
 }

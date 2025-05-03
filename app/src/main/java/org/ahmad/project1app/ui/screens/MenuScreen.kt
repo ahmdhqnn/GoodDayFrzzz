@@ -38,7 +38,8 @@ fun MenuScreen(navController: NavHostController) {
     Box(
         modifier = Modifier
             .background(if (isSystemInDarkTheme()) Color.Black else Color.White)
-            .fillMaxSize().padding(),
+            .fillMaxSize()
+            .padding(),
         contentAlignment = Alignment.Center
 
     ) {
@@ -50,7 +51,9 @@ fun MenuScreen(navController: NavHostController) {
 
             ) {
             Row(
-                modifier = Modifier.fillMaxWidth().height(330.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(330.dp),
                 horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 Column(
@@ -64,34 +67,34 @@ fun MenuScreen(navController: NavHostController) {
                         text = stringResource(R.string.menu_3dvisual),
                         alignment = Alignment.BottomEnd,
                         textAlign = TextAlign.Start,
-                        onClick = {navController.navigate(Screen.Visual.route)}
+                        onClick = { navController.navigate(Screen.Visual.route) }
 
                     )
                     ColoredBox(
-                        color = Color(0xFF2196F3 ),
+                        color = Color(0xFF2196F3),
 
                         text = stringResource(R.string.menu_module),
                         alignment = Alignment.BottomStart,
                         textAlign = TextAlign.End,
-                        onClick = {navController.navigate(Screen.Module.route)}
+                        onClick = { navController.navigate(Screen.Module.route) }
                     )
 
                 }
                 ColoredBox(
-                    color = Color(0xFF8BC34A  ),
+                    color = Color(0xFF8BC34A),
 
                     text = stringResource(R.string.menu_ar),
                     alignment = Alignment.Center,
                     textAlign = TextAlign.Center,
-                    onClick = {navController.navigate(Screen.Augmented.route)}
+                    onClick = { navController.navigate(Screen.Augmented.route) }
                 )
             }
             ColoredBox(
-                color = Color(0xFFFFC107 ),
-                text = stringResource(R.string.menu_glosarium),
+                color = Color(0xFFFFC107),
+                text = stringResource(R.string.menu_glossary),
                 alignment = Alignment.CenterEnd,
                 textAlign = TextAlign.End,
-                onClick = {navController.navigate(Screen.Glosarium.route)}
+                onClick = { navController.navigate(Screen.Glossary.route) }
             )
         }
 

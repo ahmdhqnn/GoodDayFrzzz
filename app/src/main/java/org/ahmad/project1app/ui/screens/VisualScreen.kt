@@ -47,6 +47,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.ahmad.project1app.R
@@ -69,7 +70,12 @@ fun VisualScreen(navController: NavHostController) {
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) { // Navigasi kembali
+                    IconButton(onClick = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }) { // Navigasi kembali
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowLeft,
                             contentDescription = stringResource(R.string.back)
@@ -77,30 +83,15 @@ fun VisualScreen(navController: NavHostController) {
                     }
                 },
                 actions = {
-                    var expanded by remember { mutableStateOf(false) }
-                    IconButton(onClick = {expanded = true}) {
-                        Icon(
-                            imageVector = Icons.Rounded.Menu,
-                            contentDescription = stringResource(R.string.menu)
-                        )
-                        DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false}
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.ar_title))},
-                                onClick = {navController.navigate(Screen.Augmented.route)}
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.module_title))},
-                                onClick = {navController.navigate(Screen.Module.route)}
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.glosarium_title))},
-                                onClick = {navController.navigate(Screen.Glosarium.route)}
-                            )
-                        }
-                    }
+                    MenuDropdown(
+                        text1 = stringResource(R.string.ar_title),
+                        text2 = stringResource(R.string.module_title),
+                        text3 = stringResource(R.string.glossary_title),
+                        screen1 = Screen.Augmented,
+                        screen2 = Screen.Module,
+                        screen3 = Screen.Glossary,
+                        navController = navController
+                    )
                 }
             )
         }
@@ -233,6 +224,51 @@ fun VisualScreen(navController: NavHostController) {
     }
 }
 
+@Composable
+fun MenuDropdown(
+    text1: String,
+    text2: String,
+    text3: String,
+    screen1: Screen,
+    screen2: Screen,
+    screen3: Screen,
+    navController: NavController
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    IconButton(onClick = { expanded = true }) {
+        Icon(
+            imageVector = Icons.Rounded.Menu,
+            contentDescription = stringResource(R.string.menu)
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text(text1) },
+                onClick = {
+                    navController.navigate(screen1.route)
+                    expanded = false
+                }
+            )
+            DropdownMenuItem(
+                text = { Text(text2) },
+                onClick = {
+                    navController.navigate(screen2.route)
+                    expanded = false
+                }
+            )
+            DropdownMenuItem(
+                text = { Text(text3) },
+                onClick = {
+                    navController.navigate(screen3.route)
+                    expanded = false
+                }
+            )
+        }
+    }
+}
 
 
 @Preview(showBackground = true)

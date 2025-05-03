@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowLeft
-import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -27,18 +26,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.ahmad.project1app.R
+import org.ahmad.project1app.navigation.Screen
 import org.ahmad.project1app.ui.theme.Project1appTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ARScreen(navController: NavHostController){
+fun ARScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-
-
-                ),
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
                 title = {
                     Text(
                         text = stringResource(R.string.ar_title),
@@ -47,7 +44,12 @@ fun ARScreen(navController: NavHostController){
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(0) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowLeft,
                             contentDescription = "Localized description"
@@ -55,25 +57,30 @@ fun ARScreen(navController: NavHostController){
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Rounded.Menu,
-                            contentDescription = "Localized description"
-                        )
-                    }
+                    MenuDropdown(
+                        text1 = stringResource(R.string.animation_title),
+                        text2 = stringResource(R.string.module_title),
+                        text3 = stringResource(R.string.glossary_title),
+                        screen1 = Screen.Visual,
+                        screen2 = Screen.Module,
+                        screen3 = Screen.Glossary,
+                        navController = navController
+                    )
                 },
-
-                )
+            )
         }
-    ) {
-            innerPadding -> ScreenContent(Modifier.padding(innerPadding))
+    ) { innerPadding ->
+        ScreenContent(Modifier.padding(innerPadding))
 
     }
 }
+
 @Composable
-private fun ScreenContent(modifier: Modifier ){
+private fun ScreenContent(modifier: Modifier) {
     Box(
-        modifier = Modifier.padding(16.dp).fillMaxHeight(),
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxHeight(),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -84,6 +91,7 @@ private fun ScreenContent(modifier: Modifier ){
         )
     }
 }
+
 @Preview(showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
