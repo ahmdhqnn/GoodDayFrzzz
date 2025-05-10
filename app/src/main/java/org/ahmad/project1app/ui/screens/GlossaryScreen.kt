@@ -99,7 +99,7 @@ private fun ScreenContent(modifier: Modifier) {
 @Preview(showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun GlosariumPreview() {
+fun GlossaryPreview() {
     Project1appTheme {
         GlosariumScreen(rememberNavController())
     }

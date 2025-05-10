@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
 import org.ahmad.project1app.navigation.Screen
 
@@ -40,14 +42,14 @@ fun AnimatedSplashScreen(navController: NavHostController){
         navController.popBackStack()
         navController.navigate(Screen.Home.route)
     }
-    Splash(alpha = alphaAnim.value)
+    Splash(alpha = alphaAnim.value, navController)
 }
 
 @Composable
-fun Splash(alpha: Float){
+fun Splash(alpha: Float, navController: NavHostController){
     Box(
         modifier = Modifier.background(if (isSystemInDarkTheme()) Color.Black else Color.White)
-            .fillMaxSize(),
+            .fillMaxSize().clickable { navController.navigate(Screen.Home.route) },
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -65,11 +67,11 @@ fun Splash(alpha: Float){
 
 @Composable
 fun SplashScreenPreview(){
-    Splash(alpha = 1f)
+    Splash(alpha = 1f, rememberNavController())
 }
 
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_YES, showBackground = true)
 fun SplashScreenDarkPreview(){
-    Splash(alpha = 1f)
+    Splash(alpha = 1f,rememberNavController())
 }
