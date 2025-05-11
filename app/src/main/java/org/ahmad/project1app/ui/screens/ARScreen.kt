@@ -1,7 +1,6 @@
 package org.ahmad.project1app.ui.screens
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
@@ -75,11 +74,11 @@ import org.ahmad.project1app.ui.theme.Project1appTheme
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun ARScreen(navController: NavHostController) {
-    var cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA,)
+    val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
     val lifecycleOwner = LocalLifecycleOwner.current
     var showPermissionDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val activity = context as? Activity
+
 
     LaunchedEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
