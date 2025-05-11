@@ -1,29 +1,29 @@
 package org.ahmad.project1app.ui.screens
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
+import android.net.Uri
+import android.provider.Settings
 import android.util.Log
 import android.view.MotionEvent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowLeft
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -64,7 +64,6 @@ import io.github.sceneview.rememberCollisionSystem
 import io.github.sceneview.rememberEngine
 import io.github.sceneview.rememberMaterialLoader
 import io.github.sceneview.rememberModelLoader
-
 import io.github.sceneview.rememberNodes
 import io.github.sceneview.rememberOnGestureListener
 import io.github.sceneview.rememberView
@@ -72,12 +71,15 @@ import org.ahmad.project1app.R
 import org.ahmad.project1app.navigation.Screen
 import org.ahmad.project1app.ui.theme.Project1appTheme
 
+
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun ARScreen(navController: NavHostController) {
-    val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
+    var cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA,)
     val lifecycleOwner = LocalLifecycleOwner.current
     var showPermissionDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val activity = context as? Activity
 
     LaunchedEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
@@ -113,7 +115,8 @@ fun ARScreen(navController: NavHostController) {
                             contentDescription = "Back"
                         )
                     }
-                }
+                },
+
             )
         }
     ) { innerPadding ->
@@ -126,14 +129,23 @@ fun ARScreen(navController: NavHostController) {
                     }
                 )
             }
-            cameraPermissionState.status.shouldShowRationale || showPermissionDialog -> {
-                PermissionRationaleDialog(
-                    onRequestPermission = { cameraPermissionState.launchPermissionRequest() },
+            cameraPermissionState.status.shouldShowRationale || showPermissionDialog-> {
+                // Show rationale dialog if permission was denied before
+                CameraPermissionDialog (
+                    onRequestPermission = {
+                        val intent = Intent(Settings.ACTION_APPLICATION_SETTINGS).apply {
+                            data = Uri.fromParts("package", context.packageName, null)
+                        }
+                        context.startActivity(intent)
+                        showPermissionDialog = false
+                    },
                     onDismiss = { showPermissionDialog = false }
                 )
+
             }
             else -> {
-                Column (
+
+                Column(
                     modifier = Modifier
                         .padding(innerPadding)
                         .fillMaxHeight(),
@@ -149,35 +161,18 @@ fun ARScreen(navController: NavHostController) {
                         onClick = { showPermissionDialog = true },
                         modifier = Modifier.padding(top = 16.dp)
                     ) {
-                        Text("Minta Izin Kamera")
+                        Text(text = stringResource(R.string.ask_camera))
                     }
                 }
             }
         }
     }
+
+
 }
 
-@Composable
-fun PermissionRationaleDialog(
-    onRequestPermission: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Izin Kamera Diperlukan") },
-        text = { Text("Aplikasi membutuhkan izin kamera untuk menampilkan fitur AR") },
-        confirmButton = {
-            Button(onClick = onRequestPermission) {
-                Text("Berikan Izin")
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Batal")
-            }
-        }
-    )
-}
+
+
 
 @Composable
 fun ARCameraView(
@@ -219,12 +214,15 @@ fun ARCameraView(
                     val augmentedImageDb = AugmentedImageDatabase(session)
                     val bitmap = BitmapFactory.decodeResource(
                         context.resources,
-                        R.drawable.target_image
+                        R.drawable.bumicard
                     )
                     if (bitmap != null) {
                         val imageIndex = augmentedImageDb.addImage("target_ikan", bitmap)
                         if (imageIndex >= 0) { // Perubahan disini: periksa imageIndex >= 0 bukan added
-                            Log.d("ARScreen", "Image successfully added to database with index: $imageIndex")
+                            Log.d(
+                                "ARScreen",
+                                "Image successfully added to database with index: $imageIndex"
+                            )
                             augmentedImageDatabase = augmentedImageDb
                         } else {
                             Log.e("ARScreen", "Failed to add image to database")
@@ -241,7 +239,8 @@ fun ARCameraView(
             frame.value = updatedFrame
 
             // Process augmented images
-            val updatedAugmentedImages = updatedFrame.getUpdatedTrackables(AugmentedImage::class.java)
+            val updatedAugmentedImages =
+                updatedFrame.getUpdatedTrackables(AugmentedImage::class.java)
 
             for (augmentedImage in updatedAugmentedImages) {
                 when (augmentedImage.trackingState) {
@@ -251,9 +250,13 @@ fun ARCameraView(
                             Log.d("ARScreen", "Image tracking: ${augmentedImage.name}")
 
                             try {
-                                val node = AugmentedImageNode(engine = engine, augmentedImage = augmentedImage)
+                                val node = AugmentedImageNode(
+                                    engine = engine,
+                                    augmentedImage = augmentedImage
+                                )
 
-                                val modelUri = "android.resource://${context.packageName}/${R.raw.respiratory_system}"
+                                val modelUri =
+                                    "android.resource://${context.packageName}/${R.raw.respiratory_system}"
                                 val modelNode = ModelNode(
                                     modelInstance = modelLoader.createModelInstance(modelUri)
                                 ).apply {
@@ -265,7 +268,10 @@ fun ARCameraView(
                                 childNodes.add(node)
                                 augmentedImageNodes[augmentedImage.name] = node
 
-                                Log.d("ARScreen", "Augmented Image Center Pose: ${augmentedImage.centerPose.translation.contentToString()}")
+                                Log.d(
+                                    "ARScreen",
+                                    "Augmented Image Center Pose: ${augmentedImage.centerPose.translation.contentToString()}"
+                                )
                                 Log.d("ARScreen", "Model Node Position: ${modelNode.position}")
                                 Log.d("ARScreen", "Model Node Scale: ${modelNode.scale}")
                                 Log.d("ARScreen", "Added model for image: ${augmentedImage.name}")
@@ -274,12 +280,14 @@ fun ARCameraView(
                             }
                         }
                     }
+
                     TrackingState.STOPPED -> {
                         augmentedImageNodes.remove(augmentedImage.name)?.let { node ->
                             childNodes.remove(node)
                             Log.d("ARScreen", "Removed node for image: ${augmentedImage.name}")
                         }
                     }
+
                     else -> {}
                 }
             }

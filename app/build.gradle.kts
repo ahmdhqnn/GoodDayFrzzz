@@ -47,7 +47,8 @@ android {
 }
 
 dependencies {
-
+    val fragment_version = "1.8.3"
+    val activity_version = "1.10.1"
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -60,6 +61,10 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation("androidx.activity:activity-ktx:$activity_version")
+    implementation("androidx.fragment:fragment-ktx:$fragment_version")
+    implementation("androidx.fragment:fragment-compose:$fragment_version")
+
     ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
