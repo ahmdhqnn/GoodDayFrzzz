@@ -214,7 +214,7 @@ fun ARCameraView(
                     val augmentedImageDb = AugmentedImageDatabase(session)
                     val bitmap = BitmapFactory.decodeResource(
                         context.resources,
-                        R.drawable.bumicard
+                        R.drawable.target_image
                     )
                     if (bitmap != null) {
                         val imageIndex = augmentedImageDb.addImage("target_ikan", bitmap)
