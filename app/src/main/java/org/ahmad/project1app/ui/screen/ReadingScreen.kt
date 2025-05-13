@@ -1,5 +1,8 @@
 package org.ahmad.project1app.ui.screen
 
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
@@ -16,18 +19,24 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import org.ahmad.project1app.R
 import org.ahmad.project1app.navigation.Screen
+import org.ahmad.project1app.ui.theme.Project1appTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadingScreen(navController: NavHostController) {
+    var content by remember { mutableStateOf("") }
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -78,6 +87,24 @@ fun ReadingScreen(navController: NavHostController) {
         },
         floatingActionButtonPosition = FabPosition.End
     ) { padding ->
+        ScreenContent(Modifier.padding(padding), content)
+    }
+}
 
+@Composable
+private fun ScreenContent(modifier: Modifier, content: String) {
+    Column (
+        modifier = modifier.fillMaxSize().padding(16.dp)
+    ){
+        Text(text = stringResource(R.string.dummy_module))
+    }
+}
+
+@Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Composable
+fun ReadingPreview() {
+    Project1appTheme {
+        ReadingScreen(rememberNavController())
     }
 }

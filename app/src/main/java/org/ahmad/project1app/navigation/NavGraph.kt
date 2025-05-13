@@ -10,6 +10,7 @@ import org.ahmad.project1app.ui.screen.AnimatedSplashScreen
 import org.ahmad.project1app.ui.screen.GlosariumScreen
 import org.ahmad.project1app.ui.screen.MenuScreen
 import org.ahmad.project1app.ui.screen.ModuleScreen
+import org.ahmad.project1app.ui.screen.ReadingScreen
 import org.ahmad.project1app.ui.screen.VisualScreen
 
 
@@ -36,6 +37,9 @@ fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
         }
         composable(route = Screen.Glossary.route) {
             GlosariumScreen(navController)
+        }
+        composable(route = Screen.Reading.route) {
+            ReadingScreen(navController)
         }
 
     }

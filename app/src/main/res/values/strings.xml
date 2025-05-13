@@ -26,6 +26,11 @@
     <string name="camera_granted">Give permission</string>
     <string name="camera_rejected">Cancel</string>
     <string name="list_kosong">Empty data</string>
+    <string name="dummy_module" translatable="false">Hari itu ia telusuri sudut demi sudut Kota Bandung yang amat dicintainya seolah-olah tidak mau ada satu pun sudut yang terlewat. Setiap sudut yang disinggahinya menyisakan kenangan amat mendalam baginya.
+
+Mulai-mula ia telusuri sudut Setiabudi. Di wilayah ini ia menyimpan banyak kenangan. Penelusuran dilanjutkan ke wilayah Balai Kota dan sekitarnya. Di sini pun ia amat hanyut dengan kenangan bersama-sama sahabatnya juga kekasihnya.
+
+Lalu, ia lanjutkan menyusuri wilayah Alun-Alun yang sekarang telah berubah total dari masa dua puluh tahun yang lalu. Lagi-lagi ia terhanyut dalam kenangan masa lalunya. Setiap tempat, setiap sudut kota itu, yang ada hanyalah kenangan indah baginya.</string>
 
     <string name="home_title">Home Screen</string>
     <string name="ar_dummy_camera">Menampilkan tampilan kamera AR di sini.</string>
