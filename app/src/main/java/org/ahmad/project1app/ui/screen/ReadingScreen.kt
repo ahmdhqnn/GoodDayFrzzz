@@ -3,18 +3,16 @@ package org.ahmad.project1app.ui.screen
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowLeft
-import androidx.compose.material.icons.rounded.Build
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -25,11 +23,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -90,18 +91,8 @@ fun ReadingScreen(navController: NavHostController, id: Long? = null) {
                 }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { },
-                shape = CircleShape,
-                containerColor = Color.White,
-                contentColor = Color.Black,
-                modifier = Modifier.offset(y = (-100).dp)
-            ) {
-                Icon(Icons.Rounded.Build, stringResource(R.string.glossary))
-            }
-        },
-        floatingActionButtonPosition = FabPosition.End
+
+
     ) { padding ->
         ScreenContent(Modifier.padding(padding), content)
     }
@@ -110,9 +101,23 @@ fun ReadingScreen(navController: NavHostController, id: Long? = null) {
 @Composable
 private fun ScreenContent(modifier: Modifier, content: String) {
     Column (
-        modifier = modifier.fillMaxSize().padding(16.dp)
+        modifier = modifier.fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())
     ){
-        Text(text = stringResource(R.string.dummy_module))
+        Text(
+            text = content,
+            style = LocalTextStyle.current.merge(
+                TextStyle(
+                    lineHeight = 2.em,
+                    platformStyle = PlatformTextStyle(
+                        includeFontPadding = false
+                    ),
+                    lineHeightStyle = LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Center,
+                        trim = LineHeightStyle.Trim.Both
+                    )
+                )
+            )
+        )
     }
 }
 
