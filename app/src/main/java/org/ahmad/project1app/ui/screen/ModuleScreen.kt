@@ -1,6 +1,7 @@
 package org.ahmad.project1app.ui.screen
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -94,30 +95,32 @@ fun ModuleScreen(navController: NavHostController) {
         },
         floatingActionButtonPosition = FabPosition.End
     ) { innerPadding ->
-        ScreenContent(Modifier.padding(innerPadding))
+        ScreenContent(Modifier.padding(innerPadding),navController)
     }
 }
 
 @Composable
-private fun ScreenContent(modifier: Modifier) {
+private fun ScreenContent(modifier: Modifier, navController: NavHostController) {
     val viewModel: ModuleViewModel = viewModel()
     val data = viewModel.data
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(data) {
-            ListItem(module = it)
+            ListItem(module = it){
+                navController.navigate(Screen.Reading.withId(it.id))
+            }
+
 
         }
     }
 }
 
 @Composable
-fun ListItem(module: Module) {
-
+fun ListItem(module: Module, onClick: () -> Unit) {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
-        modifier = Modifier.padding(16.dp).fillMaxWidth()
+        modifier = Modifier.padding(16.dp).clickable{onClick()}.fillMaxWidth()
 
     ) {
         Text(

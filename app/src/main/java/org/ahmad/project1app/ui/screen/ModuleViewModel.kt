@@ -87,4 +87,7 @@ class ModuleViewModel : ViewModel() {
         ),
 
     )
+    fun getModule(id: Long): Module?{
+        return data.find { it.id == id }
+    }
 }
