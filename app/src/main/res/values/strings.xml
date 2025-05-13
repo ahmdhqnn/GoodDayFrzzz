@@ -25,6 +25,7 @@
     <string name="ask_camera">Ask for camera permission</string>
     <string name="camera_granted">Give permission</string>
     <string name="camera_rejected">Cancel</string>
+    <string name="list_kosong">Empty data</string>
 
     <string name="home_title">Home Screen</string>
     <string name="ar_dummy_camera">Menampilkan tampilan kamera AR di sini.</string>
