@@ -1,4 +1,4 @@
-package org.ahmad.project1app.ui.screens
+package org.ahmad.project1app.ui.screen
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.animateFloatAsState

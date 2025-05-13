@@ -1,4 +1,4 @@
-package org.ahmad.project1app.ui.screens
+package org.ahmad.project1app.ui.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -76,7 +76,7 @@ fun MenuScreen(navController: NavHostController) {
                         text = stringResource(R.string.menu_module),
                         alignment = Alignment.BottomStart,
                         textAlign = TextAlign.End,
-                        onClick = { navController.navigate(Screen.Module.route) }
+                        onClick = { navController.navigate(Screen.Modul.route) }
                     )
 
                 }

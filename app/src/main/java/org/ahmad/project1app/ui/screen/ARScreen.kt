@@ -1,4 +1,4 @@
-package org.ahmad.project1app.ui.screens
+package org.ahmad.project1app.ui.screen
 
 import android.Manifest
 import android.content.Intent

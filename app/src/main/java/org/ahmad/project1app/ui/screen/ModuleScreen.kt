@@ -1,4 +1,4 @@
-package org.ahmad.project1app.ui.screens
+package org.ahmad.project1app.ui.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -35,9 +36,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.ahmad.project1app.R
+import org.ahmad.project1app.model.Module
 import org.ahmad.project1app.navigation.Screen
 import org.ahmad.project1app.ui.theme.Project1appTheme
 
@@ -93,44 +96,26 @@ fun ModuleScreen(navController: NavHostController) {
         },
         floatingActionButtonPosition = FabPosition.End
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 60.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.respiratory_system),
-                contentDescription = stringResource(R.string.respiratory_system_image),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp),
-                contentScale = ContentScale.Fit
-            )
+        ScreenContent(Modifier.padding(innerPadding))
+    }
+}
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = stringResource(R.string.module_content_title),
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-
-            Text(
-                text = stringResource(R.string.module_content_paragraph1),
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-
-            Text(
-                text = stringResource(R.string.module_content_paragraph2),
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+@Composable
+private fun ScreenContent(modifier: Modifier) {
+    val viewModel: ModuleViewModel = viewModel()
+    val data = viewModel.data
+    LazyColumn(modifier = modifier.fillMaxSize()) {
+        items(data) {
+            ListItem(module = it)
         }
+    }
+}
+
+@Composable
+fun ListItem(module: Module) {
+    Column {
+        Text(text = module.title, fontWeight = FontWeight.Bold)
+        Text(text = module.content)
     }
 }
 

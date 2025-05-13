@@ -5,12 +5,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.ahmad.project1app.ui.screens.ARScreen
-import org.ahmad.project1app.ui.screens.AnimatedSplashScreen
-import org.ahmad.project1app.ui.screens.GlosariumScreen
-import org.ahmad.project1app.ui.screens.MenuScreen
-import org.ahmad.project1app.ui.screens.ModuleScreen
-import org.ahmad.project1app.ui.screens.VisualScreen
+import org.ahmad.project1app.ui.screen.ARScreen
+import org.ahmad.project1app.ui.screen.AnimatedSplashScreen
+import org.ahmad.project1app.ui.screen.GlosariumScreen
+import org.ahmad.project1app.ui.screen.MenuScreen
+import org.ahmad.project1app.ui.screen.ModuleScreen
+import org.ahmad.project1app.ui.screen.VisualScreen
 
 
 @Composable
@@ -31,7 +31,7 @@ fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
         composable(route = Screen.Visual.route) {
             VisualScreen(navController)
         }
-        composable(route = Screen.Module.route) {
+        composable(route = Screen.Modul.route) {
             ModuleScreen(navController)
         }
         composable(route = Screen.Glossary.route) {

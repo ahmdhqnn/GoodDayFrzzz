@@ -1,4 +1,4 @@
-package org.ahmad.project1app.ui.screens
+package org.ahmad.project1app.ui.screen
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text

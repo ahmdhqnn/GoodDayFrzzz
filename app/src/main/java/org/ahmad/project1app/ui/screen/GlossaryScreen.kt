@@ -1,4 +1,4 @@
-package org.ahmad.project1app.ui.screens
+package org.ahmad.project1app.ui.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
@@ -66,7 +66,7 @@ fun GlosariumScreen(navController: NavHostController) {
                         text3 = stringResource(R.string.module_title),
                         screen1 = Screen.Visual,
                         screen2 = Screen.Augmented,
-                        screen3 = Screen.Module,
+                        screen3 = Screen.Modul,
                         navController = navController
                     )
                 },

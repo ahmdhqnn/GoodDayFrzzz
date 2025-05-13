@@ -1,4 +1,4 @@
-package org.ahmad.project1app.ui.screens
+package org.ahmad.project1app.ui.screen
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
@@ -88,7 +88,7 @@ fun VisualScreen(navController: NavHostController) {
                         text2 = stringResource(R.string.module_title),
                         text3 = stringResource(R.string.glossary_title),
                         screen1 = Screen.Augmented,
-                        screen2 = Screen.Module,
+                        screen2 = Screen.Modul,
                         screen3 = Screen.Glossary,
                         navController = navController
                     )
