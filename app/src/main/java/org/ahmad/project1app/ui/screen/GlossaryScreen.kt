@@ -43,7 +43,7 @@ import org.ahmad.project1app.util.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GlosariumScreen(navController: NavHostController) {
+fun GlossaryScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -146,6 +146,6 @@ private fun ListItem(glossary: Glossary, onClick: () -> Unit) {
 @Composable
 fun GlossaryPreview() {
     Project1appTheme {
-        GlosariumScreen(rememberNavController())
+        GlossaryScreen(rememberNavController())
     }
 }

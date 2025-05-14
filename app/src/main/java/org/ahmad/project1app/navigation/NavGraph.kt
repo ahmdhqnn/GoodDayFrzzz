@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import org.ahmad.project1app.ui.screen.ARScreen
 import org.ahmad.project1app.ui.screen.AnimatedSplashScreen
-import org.ahmad.project1app.ui.screen.GlosariumScreen
+import org.ahmad.project1app.ui.screen.GlossaryScreen
 import org.ahmad.project1app.ui.screen.KEY_ID_MODULE
 import org.ahmad.project1app.ui.screen.MenuScreen
 import org.ahmad.project1app.ui.screen.ModuleScreen
@@ -39,7 +39,7 @@ fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
             ModuleScreen(navController)
         }
         composable(route = Screen.Glosarium.route) {
-            GlosariumScreen(navController)
+            GlossaryScreen(navController)
         }
         composable(
             route = Screen.Reading.route,
