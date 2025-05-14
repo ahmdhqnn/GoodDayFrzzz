@@ -85,7 +85,7 @@ fun ReadingScreen(navController: NavHostController, id: Long? = null) {
                         text3 = stringResource(R.string.glossary_title),
                         screen1 = Screen.Visual,
                         screen2 = Screen.Augmented,
-                        screen3 = Screen.Glossary,
+                        screen3 = Screen.Glosarium,
                         navController = navController
                     )
                 }

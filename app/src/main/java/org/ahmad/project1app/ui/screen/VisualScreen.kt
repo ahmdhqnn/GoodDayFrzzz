@@ -89,7 +89,7 @@ fun VisualScreen(navController: NavHostController) {
                         text3 = stringResource(R.string.glossary_title),
                         screen1 = Screen.Augmented,
                         screen2 = Screen.Modul,
-                        screen3 = Screen.Glossary,
+                        screen3 = Screen.Glosarium,
                         navController = navController
                     )
                 }

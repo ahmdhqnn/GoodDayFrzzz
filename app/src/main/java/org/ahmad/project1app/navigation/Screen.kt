@@ -8,7 +8,7 @@ sealed class Screen(val route: String) {
     data object Augmented: Screen("augmentedScreen")
     data object Visual: Screen("visualScreen")
     data object Modul: Screen("moduleScreen")
-    data object Glossary: Screen("glosariumScreen")
+    data object Glosarium: Screen("glossaryScreen")
     data object Reading: Screen("readingScreen/{$KEY_ID_MODULE}"){
         fun withId(id: Long)= "readingScreen/$id"
     }

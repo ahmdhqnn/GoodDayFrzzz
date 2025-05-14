@@ -3,9 +3,7 @@ package org.ahmad.project1app.ui.screen
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,24 +22,24 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.ahmad.project1app.R
-import org.ahmad.project1app.model.Glosarium
+import org.ahmad.project1app.model.Glossary
 import org.ahmad.project1app.navigation.Screen
 import org.ahmad.project1app.ui.theme.Project1appTheme
+import org.ahmad.project1app.util.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -88,15 +86,17 @@ fun GlosariumScreen(navController: NavHostController) {
                 )
         }
     ) { innerPadding ->
-        ScreenContent(Modifier.padding(innerPadding))
+        ScreenContent(Modifier.padding(innerPadding),navController)
 
     }
 }
 
 @Composable
-private fun ScreenContent(modifier: Modifier = Modifier) {
-    val viewModel: GlossaryViewModel = viewModel()
-    val data = viewModel.data
+private fun ScreenContent(modifier: Modifier = Modifier, navController: NavHostController) {
+    val context = LocalContext.current
+    val factory = ViewModelFactory(context)
+    val viewModel: GlossaryViewModel = viewModel(factory = factory)
+    val data by viewModel.data.collectAsState()
     if (data.isEmpty()){
         Column(
             modifier = modifier.fillMaxSize().padding(16.dp),
@@ -107,8 +107,8 @@ private fun ScreenContent(modifier: Modifier = Modifier) {
     else{
         LazyColumn(modifier = modifier.fillMaxSize()) {
             items(data) {
-                ListItem(glosarium = it){
-
+                ListItem(glossary = it){
+                    navController.navigate(Screen.Reading.withId(it.module_id))
                 }
             }
         }
@@ -117,7 +117,7 @@ private fun ScreenContent(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ListItem(glosarium: Glosarium, onClick:()-> Unit) {
+private fun ListItem(glossary: Glossary, onClick: () -> Unit) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
@@ -128,13 +128,13 @@ private fun ListItem(glosarium: Glosarium, onClick:()-> Unit) {
 
     ) {
         Text(
-            text = glosarium.title,
+            text = glossary.title,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(16.dp)
 
         )
         Text(
-            text = glosarium.desc,
+            text = glossary.desc,
             modifier = Modifier.padding(bottom = 16.dp, start = 16.dp, end = 16.dp)
         )
 

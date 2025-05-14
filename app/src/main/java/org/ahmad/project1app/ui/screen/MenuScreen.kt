@@ -94,7 +94,7 @@ fun MenuScreen(navController: NavHostController) {
                 text = stringResource(R.string.menu_glossary),
                 alignment = Alignment.CenterEnd,
                 textAlign = TextAlign.End,
-                onClick = { navController.navigate(Screen.Glossary.route) }
+                onClick = { navController.navigate(Screen.Glosarium.route) }
             )
         }
 

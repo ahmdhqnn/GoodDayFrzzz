@@ -38,7 +38,7 @@ fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
         composable(route = Screen.Modul.route) {
             ModuleScreen(navController)
         }
-        composable(route = Screen.Glossary.route) {
+        composable(route = Screen.Glosarium.route) {
             GlosariumScreen(navController)
         }
         composable(

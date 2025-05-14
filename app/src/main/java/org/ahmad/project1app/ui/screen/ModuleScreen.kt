@@ -2,7 +2,6 @@ package org.ahmad.project1app.ui.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -19,7 +18,6 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -27,8 +25,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -41,6 +42,8 @@ import org.ahmad.project1app.R
 import org.ahmad.project1app.model.Module
 import org.ahmad.project1app.navigation.Screen
 import org.ahmad.project1app.ui.theme.Project1appTheme
+import org.ahmad.project1app.util.ViewModelFactory
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,7 +79,7 @@ fun ModuleScreen(navController: NavHostController) {
                         text3 = stringResource(R.string.glossary_title),
                         screen1 = Screen.Visual,
                         screen2 = Screen.Augmented,
-                        screen3 = Screen.Glossary,
+                        screen3 = Screen.Glosarium,
                         navController = navController
                     )
                 }
@@ -101,8 +104,10 @@ fun ModuleScreen(navController: NavHostController) {
 
 @Composable
 private fun ScreenContent(modifier: Modifier, navController: NavHostController) {
-    val viewModel: ModuleViewModel = viewModel()
-    val data = viewModel.data
+    val context = LocalContext.current
+    val factory = ViewModelFactory(context)
+    val viewModel: ModuleViewModel = viewModel(factory = factory)
+    val data by viewModel.data.collectAsState()
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(data) {
             ListItem(module = it){
@@ -115,7 +120,7 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
 }
 
 @Composable
-fun ListItem(module: Module, onClick: () -> Unit) {
+private fun ListItem(module: Module, onClick: () -> Unit) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
