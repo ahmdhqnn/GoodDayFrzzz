@@ -70,7 +70,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.arsceneview)
+    implementation("io.github.sceneview:arsceneview:2.0.2")
     implementation(libs.accompanist.permissions)
     implementation(libs.google.ar.core)
     

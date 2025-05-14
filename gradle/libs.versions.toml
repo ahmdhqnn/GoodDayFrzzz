@@ -13,7 +13,7 @@ composeBom = "2025.05.00"
 navCompose = "2.9.0"
 roomRuntime = "2.7.1"
 kotlinxSerializationJson = "1.7.3"
-arCore = "1.48.0"
+arCore = "1.46.0"
 accompanist = "0.34.0"
 
 
