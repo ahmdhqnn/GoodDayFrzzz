@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "module")
 data class Module(
-    @PrimaryKey(autoGenerate = false)
-    val id: Long = 0L,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long ,
     val title: String,
     val content: String
 )

@@ -15,7 +15,5 @@ class ModuleViewModel(dao: BreatheasyDao) : ViewModel() {
         initialValue = emptyList()
     )
 
-    fun getModule(id: Long): Module?{
-        return data.value.find { it.id == id }
-    }
+
 }

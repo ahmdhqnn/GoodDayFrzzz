@@ -98,7 +98,7 @@ fun ModuleScreen(navController: NavHostController) {
         },
         floatingActionButtonPosition = FabPosition.End
     ) { innerPadding ->
-        ScreenContent(Modifier.padding(innerPadding),navController)
+        ScreenContent(Modifier.padding(innerPadding), navController)
     }
 }
 
@@ -110,7 +110,7 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
     val data by viewModel.data.collectAsState()
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(data) {
-            ListItem(module = it){
+            ListItem(module = it) {
                 navController.navigate(Screen.Reading.withId(it.id))
             }
 
@@ -125,7 +125,10 @@ private fun ListItem(module: Module, onClick: () -> Unit) {
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
-        modifier = Modifier.padding(16.dp).clickable{onClick()}.fillMaxWidth()
+        modifier = Modifier
+            .padding(16.dp)
+            .clickable { onClick() }
+            .fillMaxWidth()
 
     ) {
         Text(

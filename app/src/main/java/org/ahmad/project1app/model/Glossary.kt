@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
     tableName = "glossary"
 )
 data class Glossary(
-    @PrimaryKey(autoGenerate = false)
-    val id: Long = 0L,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long ,
     val title: String,
     val desc: String,
     val module_id: Long

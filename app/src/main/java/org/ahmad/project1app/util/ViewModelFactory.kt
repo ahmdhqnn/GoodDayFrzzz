@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import org.ahmad.project1app.database.BreatheasyDb
 import org.ahmad.project1app.ui.screen.GlossaryViewModel
 import org.ahmad.project1app.ui.screen.ModuleViewModel
+import org.ahmad.project1app.ui.screen.ReadingViewModel
 
 class ViewModelFactory(
     private val context: Context
@@ -18,6 +19,9 @@ class ViewModelFactory(
         }
         else if (modelClass.isAssignableFrom(GlossaryViewModel::class.java)){
             return GlossaryViewModel(dao) as T
+        }
+        else if (modelClass.isAssignableFrom(ReadingViewModel::class.java)){
+            return ReadingViewModel(dao) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }

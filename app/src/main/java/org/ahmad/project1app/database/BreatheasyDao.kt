@@ -10,11 +10,14 @@ import org.ahmad.project1app.model.Module
 @Dao
 interface BreatheasyDao {
 
-        @Transaction
+    @Transaction
     @Query("SELECT * FROM module")
     fun getModule(): Flow<List<Module>>
 
     @Query("SELECT * FROM glossary")
-    fun getGlossary() : Flow<List<Glossary>>
+    fun getGlossary(): Flow<List<Glossary>>
+
+    @Query("SELECT * FROM module WHERE id = :id")
+    suspend fun getModuleById(id: Long) : Module?
 
 }

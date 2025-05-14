@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -32,18 +33,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.ahmad.project1app.R
 import org.ahmad.project1app.navigation.Screen
 import org.ahmad.project1app.ui.theme.Project1appTheme
+import org.ahmad.project1app.util.ViewModelFactory
 
 const val KEY_ID_MODULE = "idModule"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadingScreen(navController: NavHostController, id: Long? = null) {
-    val viewModel: ModuleViewModel = viewModel()
+    val context = LocalContext.current
+    val factory = ViewModelFactory(context)
+        val viewModel: ReadingViewModel = viewModel(factory=factory)
     var content by remember { mutableStateOf("") }
     var title by remember { mutableStateOf("") }
 
