@@ -14,7 +14,7 @@ interface BreatheasyDao {
     @Query("SELECT * FROM module")
     fun getModule(): Flow<List<Module>>
 
-    @Query("SELECT * FROM glossary")
+    @Query("SELECT * FROM glossary ORDER BY title")
     fun getGlossary(): Flow<List<Glossary>>
 
     @Query("SELECT * FROM module WHERE id = :id")

@@ -1,8 +1,8 @@
 [versions]
-agp = "8.8.2"
+agp = "8.10.0"
 arsceneview = "2.2.1"
-kotlin = "2.0.0"
-devtoolsKsp = "2.0.0-1.0.24"
+kotlin = "2.1.20"
+devtoolsKsp = "2.1.20-2.0.1"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -13,7 +13,7 @@ composeBom = "2025.05.00"
 navCompose = "2.9.0"
 roomRuntime = "2.7.1"
 kotlinxSerializationJson = "1.7.3"
-arCore = "1.46.0"
+arCore = "1.48.0"
 accompanist = "0.34.0"
 
 

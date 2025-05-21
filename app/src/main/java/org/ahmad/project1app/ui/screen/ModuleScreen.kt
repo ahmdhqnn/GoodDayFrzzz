@@ -99,8 +99,11 @@ fun ModuleScreen(navController: NavHostController) {
         floatingActionButtonPosition = FabPosition.End
     ) { innerPadding ->
         ScreenContent(Modifier.padding(innerPadding), navController)
+
     }
 }
+
+
 
 @Composable
 private fun ScreenContent(modifier: Modifier, navController: NavHostController) {

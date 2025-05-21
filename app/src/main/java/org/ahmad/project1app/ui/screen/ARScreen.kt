@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.MotionEvent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -185,11 +186,12 @@ fun ARScreen(navController: NavHostController) {
                 )
             }
             else -> {
-                Box(
+                Column(
                     modifier = Modifier
                         .padding(innerPadding)
                         .fillMaxHeight(),
-                    contentAlignment = Alignment.Center
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = stringResource(R.string.camera_permission_needed),

@@ -105,7 +105,8 @@ fun ReadingScreen(navController: NavHostController, id: Long? = null) {
 @Composable
 private fun ScreenContent(modifier: Modifier, content: String) {
     Column (
-        modifier = modifier.fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())
+        modifier = modifier.fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState()),
+
     ){
         Text(
             text = content,

@@ -35,5 +35,6 @@ Lalu, ia lanjutkan menyusuri wilayah Alun-Alun yang sekarang telah berubah total
     <string name="home_title">Home Screen</string>
     <string name="ar_dummy_camera">Menampilkan tampilan kamera AR di sini.</string>
     <string name="camera_permission_needed">Camera permisson needed for AR feature</string>
+    <string name="scroll_to_top_cd" translatable="false">Scroll back to top</string>
 
 </resources>
