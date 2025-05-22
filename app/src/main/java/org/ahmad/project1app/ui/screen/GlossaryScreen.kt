@@ -28,9 +28,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,10 +59,16 @@ import org.ahmad.project1app.util.ViewModelFactory
 fun GlossaryScreen(navController: NavHostController) {
     val lazyListState = rememberLazyListState() // Create LazyListState
     val coroutineScope = rememberCoroutineScope() // Create CoroutineScope
+    val showScrollToTopButton by remember {
+        derivedStateOf {
+            lazyListState.firstVisibleItemIndex > 0
+        }
+    }
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
+
                 title = {
                     Text(
                         text = stringResource(R.string.glossary_title),
@@ -67,6 +76,12 @@ fun GlossaryScreen(navController: NavHostController) {
                         overflow = TextOverflow.Ellipsis
                     )
                 },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background, // Or another theme color like primaryContainer
+                    titleContentColor = MaterialTheme.colorScheme.onBackground,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant, // Or your custom choice
+                    actionIconContentColor = MaterialTheme.colorScheme.secondary // Example: using secondary color
+                ),
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.navigate(Screen.Home.route) {
@@ -95,7 +110,7 @@ fun GlossaryScreen(navController: NavHostController) {
         },
         floatingActionButton = { // Add the FAB to the Scaffold
             // Show button only if not at the top
-            if (lazyListState.firstVisibleItemIndex > 0) {
+            if (showScrollToTopButton) {
                 ScrollToTopButton(onClick = {
                     coroutineScope.launch {
                         lazyListState.animateScrollToItem(index = 0)

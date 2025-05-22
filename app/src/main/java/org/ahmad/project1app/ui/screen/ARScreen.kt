@@ -98,12 +98,25 @@ fun ARScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface, // Or another theme color like primaryContainer
+
+                    // Title content color will be MaterialTheme.colorScheme.onSurface by default.
+                    // Let's say you want it to always be your primary color:
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+
+                    // Navigation icon color will be MaterialTheme.colorScheme.onSurfaceVariant or onSurface by default.
+                    navigationIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant, // Or your custom choice
+
+                    // Action icon color will be MaterialTheme.colorScheme.onSurfaceVariant or onSurface by default.
+                    actionIconContentColor = MaterialTheme.colorScheme.secondary
+                ),
                 title = {
                     Text(
                         text = stringResource(R.string.ar_title),
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 },
                 navigationIcon = {
