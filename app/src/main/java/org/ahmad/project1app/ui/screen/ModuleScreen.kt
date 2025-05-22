@@ -44,7 +44,6 @@ fun ModuleScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-
                 title = {
                     Text(
                         text = stringResource(R.string.module_title),
