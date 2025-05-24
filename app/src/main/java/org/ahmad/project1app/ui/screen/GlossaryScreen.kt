@@ -57,11 +57,11 @@ import org.ahmad.project1app.util.ViewModelFactory
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GlossaryScreen(navController: NavHostController) {
-    val lazyListState = rememberLazyListState() // Create LazyListState
+    val state = rememberLazyListState() // Create LazyListState
     val coroutineScope = rememberCoroutineScope() // Create CoroutineScope
     val showScrollToTopButton by remember {
         derivedStateOf {
-            lazyListState.firstVisibleItemIndex > 0
+            state.firstVisibleItemIndex > 0
         }
     }
 
@@ -113,7 +113,7 @@ fun GlossaryScreen(navController: NavHostController) {
             if (showScrollToTopButton) {
                 ScrollToTopButton(onClick = {
                     coroutineScope.launch {
-                        lazyListState.animateScrollToItem(index = 0)
+                        state.scrollToItem(index = 0)
                     }
                 })
             }
@@ -123,7 +123,7 @@ fun GlossaryScreen(navController: NavHostController) {
         ScreenContent(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
-            lazyListState = lazyListState // Pass the state to ScreenContent
+            state = state // Pass the state to ScreenContent
         )
     }
 }
@@ -146,7 +146,7 @@ fun ScrollToTopButton(onClick: () -> Unit) {
 private fun ScreenContent(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    lazyListState: LazyListState // Receive the LazyListState
+    state: LazyListState // Receive the LazyListState
 ) {
     val context = LocalContext.current
     val factory = ViewModelFactory(context)
@@ -164,7 +164,7 @@ private fun ScreenContent(
     } else {
         LazyColumn(
             modifier = modifier.fillMaxSize(),
-            state = lazyListState,
+            state = state,
             contentPadding = PaddingValues(bottom = 70.dp)
         ) {
             val grouped = data.groupBy { it.title[0] }
